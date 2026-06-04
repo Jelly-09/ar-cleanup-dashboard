@@ -1,73 +1,192 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>海外诊所历史 AR 清理项目复盘看板</title>
-<style>
-*{box-sizing:border-box}body{margin:0;background:#f5f7fb;color:#111827;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",Arial,sans-serif}.page{max-width:1500px;margin:0 auto;padding:28px}.top{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;margin-bottom:22px}.eyebrow{color:#9ca3af;font-size:13px;margin-bottom:8px}h1{margin:0;font-size:32px;letter-spacing:-.4px}.sub{color:#6b7280;margin-top:10px;line-height:1.6;max-width:980px}.tabs{display:flex;gap:10px;flex-shrink:0}button{border:1px solid #e5e7eb;background:#fff;border-radius:999px;padding:10px 18px;cursor:pointer;font-weight:700;color:#374151}button.active{background:#111827;color:#fff;border-color:#111827}.card{background:#fff;border:1px solid #e5e7eb;border-radius:24px;box-shadow:0 10px 24px rgba(17,24,39,.04);margin-bottom:18px}.card-inner{padding:24px}.section-title{margin-bottom:18px}.section-title span{display:inline-block;background:#fef3c7;padding:4px 8px;font-size:24px;font-weight:900}.section-title p{margin:10px 0 0;color:#6b7280;font-size:14px}.kpi-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px}.kpi{border-radius:22px;padding:20px;background:#fff;border:1px solid #eef0f4;min-height:150px}.kpi .label{font-weight:800;font-size:14px}.kpi .value{margin-top:22px;font-size:32px;font-weight:900;letter-spacing:-.6px}.kpi .note{margin-top:10px;color:#6b7280;font-size:13px;line-height:1.45}.green{background:#ecfdf5;color:#166534}.rose{background:#fff1f2;color:#9f1239}.orange{background:#fff7ed;color:#9a3412}.blue{background:#eff6ff;color:#1e40af}.yellow{background:#fefce8;color:#854d0e}.progress-box{margin-top:20px;background:#f8fafc;border-radius:22px;padding:20px}.progress-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px}.progress-head b{font-size:18px}.progress-head .big{font-size:38px;color:#15803d;font-weight:900}.progress{height:16px;background:#e5e7eb;border-radius:999px;overflow:hidden}.progress div{height:100%;width:100%;background:#22c55e;border-radius:999px}.grid-3{display:grid;grid-template-columns:.85fr 1.1fr 1.1fr;gap:16px}.clinic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.chart-title{font-size:18px;font-weight:900;margin-bottom:6px}.chart-sub{color:#6b7280;font-size:14px;margin-bottom:16px;line-height:1.5}.donut-wrap{display:flex;align-items:center;justify-content:center;min-height:270px}.donut{width:220px;height:220px;border-radius:50%;background:conic-gradient(#16a34a 0 52.1%,#e11d48 52.1% 72.4%,#3b82f6 72.4% 100%);position:relative}.donut:after{content:"";width:118px;height:118px;border-radius:50%;background:white;position:absolute;top:51px;left:51px}.legend{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}.legend div{border-radius:12px;padding:9px;text-align:center;font-size:12px;font-weight:800}.bar-list{display:grid;gap:12px}.bar-row{display:grid;grid-template-columns:150px 1fr 100px;gap:12px;align-items:center}.bar-name{color:#475569;font-size:13px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.bar-track{height:14px;background:#eef2f7;border-radius:999px;overflow:hidden}.bar-fill{height:100%;background:#9aafd0;border-radius:999px}.bar-value{text-align:right;color:#475569;font-size:13px;font-weight:700}table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;color:#6b7280;border-bottom:1px solid #e5e7eb;padding:12px;background:#f9fafb;white-space:nowrap}td{border-bottom:1px solid #eef0f4;padding:13px 12px;vertical-align:top}tr:last-child td{border-bottom:none}.num-green{color:#15803d;font-weight:800}.num-rose{color:#be123c;font-weight:800}.num-blue{color:#1d4ed8;font-weight:800}.muted{color:#6b7280}.badge{display:inline-block;border:1px solid;border-radius:999px;padding:5px 10px;font-size:12px;font-weight:800}.badge.green{border-color:#bbf7d0;background:#ecfdf5;color:#15803d}.badge.rose{border-color:#fecdd3;background:#fff1f2;color:#be123c}.badge.blue{border-color:#bfdbfe;background:#eff6ff;color:#1d4ed8}.mini-card{border-radius:22px;background:#f8fafc;padding:20px;border:1px solid #eef0f4}.mini-head{display:flex;justify-content:space-between;align-items:center}.mini-title{font-size:20px;font-weight:900}.pill{background:#16a34a;color:#fff;border-radius:999px;padding:5px 10px;font-size:12px;font-weight:900}.mini-amount{margin:18px 0 12px;font-size:30px;font-weight:900}.mini-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}.mini-grid div{border-radius:16px;padding:12px;font-size:13px}.mini-grid b{display:block;margin-top:4px}.note-card{padding:18px;border-radius:22px;margin-bottom:18px;font-size:14px;line-height:1.8}.note-card.blue{background:#eff6ff;color:#1e3a8a}.note-card.amber{background:#fffbeb;color:#92400e}.data-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}.data-summary div{border-radius:18px;padding:16px;background:#f8fafc}.data-summary .value{font-size:24px;font-weight:900;margin-top:8px}.hidden{display:none}.table-wrap{overflow-x:auto}.data-table{min-width:1650px}@media(max-width:1200px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.grid-3,.clinic-grid{grid-template-columns:1fr}.top{flex-direction:column}.data-summary{grid-template-columns:repeat(2,1fr)}}@media(max-width:680px){.page{padding:16px}.kpi-grid,.data-summary{grid-template-columns:1fr}h1{font-size:25px}.bar-row{grid-template-columns:120px 1fr 80px}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AR 应收账款跟进管理看板｜低保真原型</title>
+  <style>
+    :root{
+      --bg:#eef3f9;
+      --card:#ffffff;
+      --text:#172033;
+      --muted:#6b7280;
+      --line:#d9e1ec;
+      --blue:#8fa9cf;
+      --blue2:#4f73b8;
+      --green:#eaf6ee;
+      --greenText:#0f7a35;
+      --red:#fdecef;
+      --redText:#c81e4a;
+      --yellow:#fff7df;
+      --yellowText:#9a6a00;
+      --purple:#f2edff;
+      --purpleText:#5b3bb6;
+      --grey:#f2f3f5;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--text)}
+    .topbar{height:56px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;padding:0 20px;position:sticky;top:0;z-index:10}
+    .hamb{font-size:26px;color:#344054}
+    .title{font-weight:800;font-size:20px;letter-spacing:.2px}.sub{color:var(--muted);font-size:13px;margin-left:6px}.right{margin-left:auto;display:flex;gap:10px;align-items:center}.btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-size:13px;color:#344054}.btn.primary{background:#172033;color:#fff;border-color:#172033}.date{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px;color:#344054}
+    .layout{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 56px)}
+    aside{background:#fff;border-right:1px solid var(--line);padding:18px 14px;position:sticky;top:56px;height:calc(100vh - 56px);overflow:auto}.logo{font-weight:800;margin:0 0 12px 8px}.nav button{width:100%;border:none;background:transparent;text-align:left;border-radius:12px;padding:11px 12px;font-size:14px;color:#344054;cursor:pointer;margin-bottom:4px}.nav button.active{background:#172033;color:#fff;font-weight:700}.nav .group{font-size:12px;color:#98a2b3;margin:18px 8px 8px;font-weight:700;text-transform:uppercase}.note{background:#f7f9fc;border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:18px;font-size:12px;color:#667085;line-height:1.6}
+    main{padding:20px;overflow:auto}.section{display:none}.section.active{display:block}.section-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:14px}.section h1{margin:0;font-size:24px}.desc{color:var(--muted);font-size:13px;margin-top:6px}.grid{display:grid;gap:14px}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-4{grid-template-columns:repeat(4,1fr)}.grid-2{grid-template-columns:repeat(2,1fr)}.grid-5{grid-template-columns:1.05fr 1.05fr 1.05fr 1fr 1fr}.card{background:var(--card);border:1px solid #e7edf5;border-radius:18px;padding:18px;box-shadow:0 1px 2px rgba(16,24,40,.03)}.card h3{margin:0 0 14px;font-size:16px}.kpi .label{font-size:13px;color:#344054;font-weight:700}.kpi .value{font-size:44px;font-weight:900;letter-spacing:2px;margin:18px 0 8px}.kpi .value.small{font-size:32px}.kpi .meta{color:#7b8494;font-size:13px}.pill{display:inline-flex;align-items:center;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700}.pill.green{background:var(--green);color:var(--greenText)}.pill.red{background:var(--red);color:var(--redText)}.pill.yellow{background:var(--yellow);color:var(--yellowText)}.pill.blue{background:#eef4ff;color:#3561a7}.pill.purple{background:var(--purple);color:var(--purpleText)}.progress{height:16px;background:#d9dde7;border-radius:999px;overflow:hidden;margin:14px 0}.progress span{display:block;height:100%;border-radius:999px;background:var(--blue)}.progress.green span{background:#77b995}.progress.red span{background:#df6c87}.bar-list{display:grid;gap:10px}.bar-row{display:grid;grid-template-columns:110px 1fr 80px;align-items:center;gap:10px;font-size:13px;color:#475467}.bar{height:16px;background:#eef1f6;border-radius:5px;overflow:hidden}.bar span{display:block;height:100%;background:var(--blue);border-radius:5px}.bar.green span{background:#9acda7}.bar.red span{background:#e8a1b0}.bar.yellow span{background:#e9c56e}.bar.purple span{background:#b9a7e8}.table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;overflow:hidden;border-radius:12px;border:1px solid var(--line)}.table th,.table td{padding:10px 11px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);text-align:left;white-space:nowrap}.table th{background:#e8eef6;font-weight:800;color:#344054}.table tr:last-child td{border-bottom:none}.table td:last-child,.table th:last-child{border-right:none}.table .total td{background:#eef3f9;font-weight:800}.money{text-align:right!important;font-variant-numeric:tabular-nums}.muted{color:var(--muted)}.status-card{min-height:150px}.status-card.green{background:#edf8f0}.status-card.red{background:#fdecef}.status-card.blue{background:#edf3ff}.status-card.gray{background:#eeeeef}.status-card .num{font-size:40px;font-weight:900;margin:18px 0 0}.workflow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.step{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;min-width:155px}.step b{display:block;margin-bottom:6px}.arrow{color:#98a2b3;font-size:22px}.alert{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px;background:#fff}.alert.red{background:#fff3f5}.alert.yellow{background:#fff9e8}.alert.blue{background:#eef4ff}.big-number{font-size:58px;font-weight:900;letter-spacing:4px}.chart{height:210px;display:flex;align-items:flex-end;gap:18px;padding:18px 12px 8px;border-left:1px solid var(--line);border-bottom:1px solid var(--line)}.col{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px}.col .bars{height:155px;display:flex;gap:5px;align-items:flex-end}.vbar{width:18px;border-radius:6px 6px 0 0;background:var(--blue)}.vbar.green{background:#8dcf95}.vbar.yellow{background:#e5c861}.vbar.purple{background:#b19be7}.legend{display:flex;gap:12px;align-items:center;color:#667085;font-size:12px;margin-bottom:8px}.dot{width:8px;height:8px;border-radius:50%;display:inline-block;background:var(--blue);margin-right:5px}.dot.green{background:#8dcf95}.dot.yellow{background:#e5c861}.dot.purple{background:#b19be7}.detail-row:hover{background:#f8fbff}.owner-card{display:grid;grid-template-columns:160px 1fr 1fr;gap:12px;align-items:center;border-bottom:1px solid var(--line);padding:12px 0}.owner-card:last-child{border-bottom:none}.owner-name{font-weight:800}.formula{background:#f7f9fc;border:1px solid var(--line);border-radius:14px;padding:14px;font-size:13px;line-height:1.8;color:#475467}.footer-space{height:80px}
+    @media(max-width:1200px){.layout{grid-template-columns:1fr}aside{display:none}.grid-4,.grid-3,.grid-5,.grid-2{grid-template-columns:1fr}.topbar{overflow:auto}.title{font-size:17px}.sub{display:none}}
+  </style>
 </head>
 <body>
-<div class="page">
-<div class="top">
-<div><div class="eyebrow">Edited · AR Project Review Dashboard · Mock Data</div><h1>海外诊所历史 AR 清理项目复盘看板</h1><div class="sub">项目已清理完成，进度 100%。展示实际追回金额、坏账率、Patient Self-pay 自付坏账风险、诊所风险、资金来源复盘和底层 AR 明细。</div></div>
-<div class="tabs"><button id="tabDashboard" class="active" onclick="showPage('dashboard')">复盘看板</button><button id="tabData" onclick="showPage('data')">底层数据</button></div>
-</div>
-<section id="dashboard">
-<div class="card"><div class="card-inner"><div class="section-title"><span>项目成果总览</span><p>领导视角重点看：总盘子、实际追回、坏账率、自付坏账率、已调账金额和完成进度。</p></div>
-<div class="kpi-grid">
-<div class="kpi"><div class="label">历史 AR 清理范围</div><div class="value">SGD 58,000</div><div class="note">代理记账账面 outstanding</div></div>
-<div class="kpi green"><div class="label">实际追回金额</div><div class="value">SGD 30,200</div><div class="note">回款率 52.1%</div></div>
-<div class="kpi rose"><div class="label">Write-off 金额</div><div class="value">SGD 11,800</div><div class="note">总坏账率 20.3%</div></div>
-<div class="kpi orange"><div class="label">Patient 自付坏账率</div><div class="value">44.0%</div><div class="note">自付追回率 36.0%</div></div>
-<div class="kpi blue"><div class="label">已调账 / 已处理</div><div class="value">SGD 16,000</div><div class="note">占比 27.6%</div></div>
-<div class="kpi yellow"><div class="label">清理完成率</div><div class="value">100%</div><div class="note">待跟进 SGD 0</div></div>
-</div>
-<div class="progress-box"><div class="progress-head"><div><b>整体清理进度</b><div class="muted" style="font-size:14px;margin-top:6px;">已追回 + Write-off + Adjusted = 100% 已完成处理</div></div><div class="big">100%</div></div><div class="progress"><div></div></div></div>
-</div></div>
-<div class="grid-3">
-<div class="card"><div class="card-inner"><div class="chart-title">清理结果结构</div><div class="chart-sub">区分实际回款、坏账核销和账面调整。</div><div class="donut-wrap"><div class="donut"></div></div><div class="legend"><div class="green">实际追回</div><div class="rose">Write-off</div><div class="blue">Adjusted</div></div></div></div>
-<div class="card"><div class="card-inner"><div class="chart-title">坏账原因分布</div><div class="chart-sub">重点复盘最终形成 Write-off 的主要原因。</div><div class="bar-list" data-bars='[["自付账龄过长",2200],["政府理赔异常 / 超期",6200],["历史资料不完整",1700],["系统迁移差异",900],["付款方无法识别",800]]'></div></div></div>
-<div class="card" style="background:#fff7ed;"><div class="card-inner"><div class="chart-title">Patient Self-pay 自付风险</div><div class="chart-sub">自付款项账龄越长，追回难度越高，因此单独计算坏账率。</div><div class="mini-grid"><div style="background:#fff;"><span class="muted">自付应收</span><b>SGD 5,000</b></div><div class="green"><span>已追回</span><b>SGD 1,800</b></div><div class="rose"><span>自付坏账</span><b>SGD 2,200</b></div><div class="blue"><span>已调账处理</span><b>SGD 1,000</b></div></div><div style="margin-top:20px;background:#fff;border-radius:18px;padding:16px;"><div style="display:flex;justify-content:space-between;margin-bottom:10px;font-size:14px;"><span>自付坏账率</span><b>44.0%</b></div><div class="progress"><div style="width:44%;background:#f97316;"></div></div></div></div></div>
-</div>
-<div class="card"><div class="card-inner"><div class="section-title"><span>Patient Self-pay 账龄与坏账率</span><p>用于说明：客户自付款项拖得越久，追回难度越高，需要更早介入跟进。</p></div><div class="table-wrap"><table><thead><tr><th>账龄</th><th>自付应收</th><th>已追回</th><th>坏账金额</th><th>已调账</th><th>坏账率</th><th>管理判断</th></tr></thead><tbody><tr><td><b>0-90天</b></td><td>SGD 800</td><td class="num-green">SGD 650</td><td class="num-rose">SGD 0</td><td class="num-blue">SGD 150</td><td>0.0%</td><td class="muted">仍有追回空间</td></tr><tr><td><b>91-180天</b></td><td>SGD 1,200</td><td class="num-green">SGD 600</td><td class="num-rose">SGD 300</td><td class="num-blue">SGD 300</td><td>25.0%</td><td class="muted">仍有追回空间</td></tr><tr><td><b>181-365天</b></td><td>SGD 1,500</td><td class="num-green">SGD 400</td><td class="num-rose">SGD 700</td><td class="num-blue">SGD 400</td><td>46.7%</td><td class="muted">需要重点跟进</td></tr><tr><td><b>1年以上</b></td><td>SGD 1,500</td><td class="num-green">SGD 150</td><td class="num-rose">SGD 1,200</td><td class="num-blue">SGD 150</td><td>80.0%</td><td class="muted">追回难度高，需尽早判断核销</td></tr></tbody></table></div></div></div>
-<div class="card"><div class="card-inner"><div class="section-title"><span>按资金来源复盘</span><p>对不同 AR 类型分别看回款率、坏账率和最终处理结果。</p></div><div class="table-wrap"><table><thead><tr><th>资金来源</th><th>总 AR</th><th>实际追回</th><th>回款率</th><th>Write-off</th><th>坏账率</th><th>Adjusted</th><th>复盘结论</th></tr></thead><tbody><tr><td><b>Corporate</b></td><td>SGD 20,500</td><td class="num-green">SGD 12,600</td><td>61.5%</td><td class="num-rose">SGD 2,500</td><td>12.2%</td><td class="num-blue">SGD 5,400</td><td class="muted">客户对账确认后回款，部分历史余额完成调账</td></tr><tr><td><b>TPA</b></td><td>SGD 15,800</td><td class="num-green">SGD 9,200</td><td>58.2%</td><td class="num-rose">SGD 2,100</td><td>13.3%</td><td class="num-blue">SGD 4,500</td><td class="muted">根据理赔付款记录核对，短付差异完成归因</td></tr><tr><td><b>GOV</b></td><td>SGD 16,700</td><td class="num-green">SGD 7,400</td><td>44.3%</td><td class="num-rose">SGD 6,200</td><td>37.1%</td><td class="num-blue">SGD 3,100</td><td class="muted">部分政府理赔异常或超期，确认无法追回</td></tr><tr><td><b>Patient Self-pay</b></td><td>SGD 5,000</td><td class="num-green">SGD 1,800</td><td>36.0%</td><td class="num-rose">SGD 2,200</td><td>44.0%</td><td class="num-blue">SGD 1,000</td><td class="muted">账龄过长，自付款追回难度高，单独计算坏账率</td></tr></tbody></table></div></div></div>
-<div class="card"><div class="card-inner"><div class="section-title"><span>按诊所复盘</span><p>用于判断历史 AR 风险主要集中在哪些诊所。</p></div><div class="clinic-grid">
-<div class="mini-card"><div class="mini-head"><div class="mini-title">BB</div><div class="pill">100%</div></div><div class="mini-amount">SGD 24,000</div><div class="progress"><div></div></div><div class="mini-grid"><div class="green">Recovered<b>SGD 13,500</b></div><div class="rose">Write-off<b>SGD 5,800</b></div><div class="blue">Adjusted<b>SGD 4,700</b></div><div style="background:#fff;">坏账率<b>24.2%</b></div></div><div class="muted" style="margin-top:12px;font-size:14px;">回款率：56.3%</div></div>
-<div class="mini-card"><div class="mini-head"><div class="mini-title">JE</div><div class="pill">100%</div></div><div class="mini-amount">SGD 21,000</div><div class="progress"><div></div></div><div class="mini-grid"><div class="green">Recovered<b>SGD 11,200</b></div><div class="rose">Write-off<b>SGD 3,200</b></div><div class="blue">Adjusted<b>SGD 6,600</b></div><div style="background:#fff;">坏账率<b>15.2%</b></div></div><div class="muted" style="margin-top:12px;font-size:14px;">回款率：53.3%</div></div>
-<div class="mini-card"><div class="mini-head"><div class="mini-title">TM</div><div class="pill">100%</div></div><div class="mini-amount">SGD 13,000</div><div class="progress"><div></div></div><div class="mini-grid"><div class="green">Recovered<b>SGD 5,500</b></div><div class="rose">Write-off<b>SGD 2,800</b></div><div class="blue">Adjusted<b>SGD 4,700</b></div><div style="background:#fff;">坏账率<b>21.5%</b></div></div><div class="muted" style="margin-top:12px;font-size:14px;">回款率：42.3%</div></div>
-</div></div></div>
-<div class="note-card blue"><b>作品集口径说明：</b>本看板为作品集展示用模拟数据，项目状态设置为 100% 已完成。实际回款金额仅统计 Recovered；Write-off 表示已判断无法追回或保留核销依据；Adjusted 表示已到账待代理记账核销、历史 offset 或系统差异调账完成。Patient Self-pay 单独计算坏账率，用于体现客户自付款项账龄过长后的回收风险。</div>
-<div class="note-card amber"><b>后续管理建议：</b>后续建议将 AR 清理机制固化为月度流程：每月从代理记账获取 AR aging，按 GOV、TPA、Corporate、Patient Self-pay 分类核对；Recovered、Write-off、Adjusted 分开统计；Patient Self-pay 单独计算坏账率；Corporate 客户定期发送 SOA；GOV claim 定期复查 MHCP 状态，避免历史 AR 再次累积。</div>
-</section>
-<section id="data" class="hidden">
-<div class="card"><div class="card-inner"><div class="section-title"><span>底层数据：AR 清理明细台账</span><p>一行一笔历史应收，用于支撑复盘看板中的实际追回金额、Write-off 金额、Adjusted 金额、坏账率和清理完成率。</p></div><div class="data-summary"><div><span class="muted">样例 AR 金额</span><div class="value">SGD 51,489</div></div><div class="green"><span>Recovered</span><div class="value">SGD 32,989</div></div><div class="rose"><span>Write-off</span><div class="value">SGD 6,750</div></div><div class="blue"><span>Adjusted</span><div class="value">SGD 11,750</div></div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>AR ID</th><th>Clinic</th><th>Payer Type</th><th>Payer Name</th><th>Invoice / GPC No.</th><th>Invoice Date</th><th>Aging</th><th>Original AR</th><th>Recovered</th><th>Write-off</th><th>Adjusted</th><th>Final Status</th><th>Bad Debt Reason</th><th>Owner</th><th>Evidence</th><th>Remark</th></tr></thead><tbody id="dataBody"></tbody></table></div><div class="note-card blue" style="margin-top:18px;margin-bottom:0;"><b>数据口径：</b>Original AR 为代理记账账面历史应收；Recovered 为实际追回金额；Write-off 为确认无法追回金额；Adjusted 为已到账待代理记账核销、历史 offset 或系统差异调账完成金额。每笔记录的最终状态归入 Recovered、Write-off 或 Adjusted，保证项目清理进度为 100%。</div></div></div>
-</section>
-</div>
-<script>
-const rawRows=[
-["AR-001","BB","Corporate","Chiu Teng Construction","BB-2024-031","2024-01-31","1Y+",8200,8200,0,0,"Recovered","-","Finance","SOA / Bank Receipt","客户确认 SOA 后完成回款"],
-["AR-002","JE","Corporate","Win Engineering","JE-GPC-2024-118","2024-02-29","1Y+",5600,4800,0,800,"Adjusted","-","Finance","Remittance Advice / Internal Reconciliation","部分回款，剩余差异由代理记账调整"],
-["AR-003","TM","Corporate","Corporate Client A","TM-2025-022","2025-03-31","181-365天",4150,0,0,4150,"Adjusted","-","Finance","SOA / Internal Reconciliation","客户余额完成核对，纳入账面调整"],
-["AR-004","BB","TPA","MEDNEFITS","BB-GPC-013102","2024-03-15","1Y+",4189,4189,0,0,"Recovered","-","CA & Aisyah","付款记录 / Bank Receipt","核对付款记录后确认已回款"],
-["AR-005","JE","TPA","RAFFLES","JE-GPC-009876","2024-04-10","1Y+",3650,3650,0,0,"Recovered","-","CA & Aisyah","付款记录 / Bank Receipt","完成付款匹配"],
-["AR-006","TM","TPA","Alliance","TM-2025-041","2025-02-10","181-365天",3900,2800,0,1100,"Adjusted","-","CA & Aisyah","Payment Record / Reconciliation Note","付款金额差异完成归因并调账"],
-["AR-007","BB","GOV","CHAS","BB-GOV-2024-115","2024-03-14","1Y+",5200,5200,0,0,"Recovered","-","GOV Claim Owner","MHCP / Bank Receipt","MHCP payment batch 已确认"],
-["AR-008","JE","GOV","SFL","JE-GOV-2024-309","2024-04-18","1Y+",3600,3600,0,0,"Recovered","-","GOV Claim Owner","MHCP / Bank Receipt","政府理赔付款已确认"],
-["AR-009","TM","GOV","CDMP","TM-GOV-2025-188","2025-01-28","181-365天",2850,0,2850,0,"Write-off","政府理赔异常 / 超期","GOV Claim Owner","MHCP Exception","Rejected by Mediclaim，判断无法重提"],
-["AR-010","JE","GOV","HSG Chronic","JE-GOV-2025-219","2025-03-15","181-365天",2300,0,0,2300,"Adjusted","-","GOV Claim Owner","MHCP / Internal Reconciliation","理赔状态核对后完成账面调整"],
-["AR-011","JE","Patient Self-pay","Patient Self-pay","JE-CASH-048","2024-05-20","1Y+",1500,150,1200,150,"Write-off","自付账龄过长","CA & Aisyah","Internal Note / Clinic Feedback","客户自付款账龄过长，追回难度高"],
-["AR-012","TM","Patient Self-pay","Unknown Patient","TM-CASH-066","2024-08-10","181-365天",950,0,700,250,"Write-off","付款方无法识别","CA & Aisyah","Bank Statement / Internal Note","银行流水无法确认具体付款人"],
-["AR-013","BB","Corporate","Old Corporate AR","BB-GPC-2024-177","2024-06-30","1Y+",4400,0,1700,2700,"Adjusted","历史资料不完整","Finance","Internal Reconciliation","老系统历史余额，部分调账处理"],
-["AR-014","BB","Patient Self-pay","Patient Self-pay","BB-CASH-2024-051","2024-11-21","91-180天",1200,600,300,300,"Adjusted","自付账龄过长","CA & Aisyah","Clinic Feedback / Bank Receipt","部分追回，剩余完成账面处理"]
-];
-function showPage(page){document.getElementById('dashboard').classList.toggle('hidden',page!=='dashboard');document.getElementById('data').classList.toggle('hidden',page!=='data');document.getElementById('tabDashboard').classList.toggle('active',page==='dashboard');document.getElementById('tabData').classList.toggle('active',page==='data')}
-function money(n){return 'SGD '+Number(n).toLocaleString('en-SG',{maximumFractionDigits:0})}
-function renderBars(){document.querySelectorAll('[data-bars]').forEach(function(c){var data=JSON.parse(c.getAttribute('data-bars'));var max=Math.max.apply(null,data.map(function(d){return d[1]}));c.innerHTML=data.map(function(d){var w=max?d[1]/max*100:0;return '<div class="bar-row"><div class="bar-name" title="'+d[0]+'">'+d[0]+'</div><div class="bar-track"><div class="bar-fill" style="width:'+w+'%"></div></div><div class="bar-value">'+money(d[1])+'</div></div>'}).join('')})}
-function badge(status){if(status==="Recovered")return '<span class="badge green">Recovered</span>';if(status==="Write-off")return '<span class="badge rose">Write-off</span>';return '<span class="badge blue">Adjusted</span>'}
-function renderData(){document.getElementById('dataBody').innerHTML=rawRows.map(r=>'<tr><td><b>'+r[0]+'</b></td><td>'+r[1]+'</td><td>'+r[2]+'</td><td><b>'+r[3]+'</b></td><td>'+r[4]+'</td><td>'+r[5]+'</td><td>'+r[6]+'</td><td>'+money(r[7])+'</td><td class="num-green">'+money(r[8])+'</td><td class="num-rose">'+money(r[9])+'</td><td class="num-blue">'+money(r[10])+'</td><td>'+badge(r[11])+'</td><td>'+r[12]+'</td><td>'+r[13]+'</td><td>'+r[14]+'</td><td class="muted">'+r[15]+'</td></tr>').join('')}
-renderBars();renderData();
-</script>
+  <div class="topbar">
+    <div class="hamb">☰</div>
+    <div><span class="title">应收账款跟进管理看板｜低保真原型</span><span class="sub">假数据 / 用于作品集展示 / 医生与患者信息已脱敏</span></div>
+    <div class="right"><button class="btn">＋ 添加图表</button><button class="btn">筛选</button><button class="btn">外观</button><div class="date">2026-05-01 ～ 2026-05-31</div><button class="btn primary">分享</button></div>
+  </div>
+  <div class="layout">
+    <aside>
+      <div class="logo">AR Follow-up</div>
+      <div class="nav">
+        <div class="group">总览</div>
+        <button class="active" onclick="show('overview',this)">1. 管理层总览</button>
+        <button onclick="show('payer',this)">2. 付款主体视角</button>
+        <button onclick="show('status',this)">3. 状态分布</button>
+        <button onclick="show('aging',this)">4. 账龄与逾期</button>
+        <div class="group">执行</div>
+        <button onclick="show('owner',this)">5. 负责人跟进</button>
+        <button onclick="show('exception',this)">6. 异常与提醒</button>
+        <button onclick="show('detail',this)">7. 底层明细</button>
+      </div>
+      <div class="note">说明：页面所有金额、诊所分布、付款方、负责人和状态均为模拟数据，用于展示应收跟进的分析维度，不代表真实经营数据。</div>
+    </aside>
+    <main>
+      <section id="overview" class="section active">
+        <div class="section-head"><div><h1>管理层总览</h1><div class="desc">先看总额、进度、完成率，再定位未处理金额主要集中在哪个主体、哪个状态、哪个诊所。</div></div><span class="pill blue">All AR</span></div>
+        <div class="grid grid-3">
+          <div class="card kpi"><div class="label">应收账款总金额</div><div class="value">¥ 12,345,678</div><div><span class="pill green">较上期 +12.6%</span> <span class="muted">模拟数据</span></div></div>
+          <div class="card kpi"><div class="label">在进度</div><div class="value small">62%</div><div class="progress"><span style="width:62%"></span></div><div class="meta">当前 ¥ 7,654,321 ｜ 目标 ¥ 12,345,678</div></div>
+          <div class="card kpi"><div class="label">完成进度（Paid & Write Off）</div><div class="value small">38%</div><div class="progress red"><span style="width:38%"></span></div><div class="meta">当前 ¥ 4,691,357 ｜ 目标 ¥ 12,345,678</div></div>
+        </div>
+        <div class="grid grid-3" style="margin-top:14px">
+          <div class="card"><h3>诊所分布（按金额）</h3><div class="bar-list">
+            <div class="bar-row"><span>BB</span><div class="bar"><span style="width:92%"></span></div><b>5,120,000</b></div>
+            <div class="bar-row"><span>JE</span><div class="bar"><span style="width:58%"></span></div><b>3,250,000</b></div>
+            <div class="bar-row"><span>TM</span><div class="bar"><span style="width:44%"></span></div><b>2,450,000</b></div>
+            <div class="bar-row"><span>CBP</span><div class="bar"><span style="width:27%"></span></div><b>1,525,678</b></div>
+          </div></div>
+          <div class="card"><h3>月份分布（按账期）</h3><div class="bar-list">
+            <div class="bar-row"><span>2026-05</span><div class="bar green"><span style="width:90%"></span></div><b>3,210,500</b></div>
+            <div class="bar-row"><span>2026-04</span><div class="bar green"><span style="width:70%"></span></div><b>2,480,300</b></div>
+            <div class="bar-row"><span>2026-03</span><div class="bar yellow"><span style="width:60%"></span></div><b>2,110,450</b></div>
+            <div class="bar-row"><span>2026-02</span><div class="bar yellow"><span style="width:48%"></span></div><b>1,690,780</b></div>
+            <div class="bar-row"><span>2026-01</span><div class="bar red"><span style="width:38%"></span></div><b>1,071,357</b></div>
+          </div></div>
+          <div class="card"><h3>状态分布（按金额）</h3><div class="bar-list">
+            <div class="bar-row"><span>Paid</span><div class="bar green"><span style="width:42%"></span></div><b>3,620,000</b></div>
+            <div class="bar-row"><span>In Progress</span><div class="bar"><span style="width:88%"></span></div><b>7,654,321</b></div>
+            <div class="bar-row"><span>Write Off</span><div class="bar red"><span style="width:14%"></span></div><b>1,071,357</b></div>
+            <div class="bar-row"><span>Not Started</span><div class="bar"><span style="width:0%"></span></div><b>0</b></div>
+          </div></div>
+        </div>
+        <div class="grid grid-2" style="margin-top:14px">
+          <div class="card"><h3>按诊所聚合（金额）</h3><table class="table"><thead><tr><th>Clinic</th><th>Corporate</th><th>Govt</th><th>TPA</th><th>Self-pay</th><th>Total</th></tr></thead><tbody><tr><td>BB</td><td class="money">1,820,000</td><td class="money">480,000</td><td class="money">1,050,000</td><td class="money">570,000</td><td class="money">3,920,000</td></tr><tr><td>JE</td><td class="money">1,010,000</td><td class="money">320,000</td><td class="money">980,000</td><td class="money">340,000</td><td class="money">2,650,000</td></tr><tr><td>TM</td><td class="money">800,000</td><td class="money">200,000</td><td class="money">1,260,000</td><td class="money">290,000</td><td class="money">2,550,000</td></tr><tr><td>CBP</td><td class="money">350,000</td><td class="money">120,000</td><td class="money">450,000</td><td class="money">140,000</td><td class="money">1,060,000</td></tr><tr class="total"><td>总计</td><td class="money">3,980,000</td><td class="money">1,120,000</td><td class="money">3,740,000</td><td class="money">1,340,000</td><td class="money">10,180,000</td></tr></tbody></table></div>
+          <div class="card"><h3>异常 / 提醒</h3><div class="alert red"><b>逾期未跟进（>30天）</b><span class="pill red">128 笔</span></div><div class="alert yellow"><b>未匹配付款建议（PA）</b><span class="pill yellow">45 笔</span></div><div class="alert yellow"><b>待审批核销（Write Off）</b><span class="pill yellow">18 笔</span></div><div class="alert blue"><b>银行流水待匹配</b><span class="pill blue">72 笔</span></div><div class="muted" style="margin-top:12px">数据更新时间：2026-05-31 18:00</div></div>
+        </div>
+      </section>
+
+      <section id="payer" class="section">
+        <div class="section-head"><div><h1>付款主体视角</h1><div class="desc">不同主体的数据来源、判断规则、负责人不同：Gov 看 MHCP/政府状态，TPA 看 Payment Advice，自付看银行流水，Corporate 看企业抬头与付款记录。</div></div><span class="pill purple">By Payer Source</span></div>
+        <div class="grid grid-4">
+          <div class="card kpi"><div class="label">Government / CHAS / MHCP</div><div class="value small">¥1.12M</div><div class="progress green"><span style="width:72%"></span></div><div class="meta">Paid 状态为主要判断依据</div></div>
+          <div class="card kpi"><div class="label">TPA / Insurance</div><div class="value small">¥3.74M</div><div class="progress"><span style="width:55%"></span></div><div class="meta">需按 Payment Advice 拆分匹配</div></div>
+          <div class="card kpi"><div class="label">Self-pay / Cash / NETS</div><div class="value small">¥1.34M</div><div class="progress red"><span style="width:43%"></span></div><div class="meta">依赖银行流水、PayNow、NETS</div></div>
+          <div class="card kpi"><div class="label">Corporate</div><div class="value small">¥3.98M</div><div class="progress"><span style="width:64%"></span></div><div class="meta">按企业抬头和付款摘要匹配</div></div>
+        </div>
+        <div class="grid grid-2" style="margin-top:14px">
+          <div class="card"><h3>付款方分布（金额）</h3><div class="bar-list">
+            <div class="bar-row"><span>Corporate</span><div class="bar"><span style="width:80%"></span></div><b>3,980,000</b></div>
+            <div class="bar-row"><span>TPA</span><div class="bar"><span style="width:75%"></span></div><b>3,740,000</b></div>
+            <div class="bar-row"><span>Government</span><div class="bar green"><span style="width:23%"></span></div><b>1,120,000</b></div>
+            <div class="bar-row"><span>Self-pay</span><div class="bar red"><span style="width:27%"></span></div><b>1,340,000</b></div>
+          </div></div>
+          <div class="card"><h3>主体处理规则</h3><table class="table"><thead><tr><th>主体</th><th>数据来源</th><th>核对逻辑</th><th>责任人</th></tr></thead><tbody><tr><td>Gov</td><td>MHCP / CHAS</td><td>Paid 状态即视为到账</td><td>Gov Team</td></tr><tr><td>TPA</td><td>Payment Advice</td><td>一张 PA 对多张 Invoice</td><td>CA + Finance</td></tr><tr><td>Self-pay</td><td>Bank / PayNow / NETS</td><td>流水逐笔匹配 Invoice</td><td>CA Team</td></tr><tr><td>Corporate</td><td>企业付款记录</td><td>按抬头、金额、日期匹配</td><td>Finance</td></tr></tbody></table></div>
+        </div>
+        <div class="card" style="margin-top:14px"><h3>按付款方 × 诊所聚合</h3><div class="legend"><span><i class="dot"></i>BB</span><span><i class="dot green"></i>JE</span><span><i class="dot yellow"></i>TM</span><span><i class="dot purple"></i>CBP</span></div><div class="chart">
+          <div class="col"><div class="bars"><div class="vbar" style="height:140px"></div><div class="vbar green" style="height:100px"></div><div class="vbar yellow" style="height:72px"></div><div class="vbar purple" style="height:42px"></div></div><span>Corporate</span></div>
+          <div class="col"><div class="bars"><div class="vbar" style="height:120px"></div><div class="vbar green" style="height:96px"></div><div class="vbar yellow" style="height:138px"></div><div class="vbar purple" style="height:50px"></div></div><span>TPA</span></div>
+          <div class="col"><div class="bars"><div class="vbar" style="height:48px"></div><div class="vbar green" style="height:36px"></div><div class="vbar yellow" style="height:24px"></div><div class="vbar purple" style="height:18px"></div></div><span>Gov</span></div>
+          <div class="col"><div class="bars"><div class="vbar" style="height:60px"></div><div class="vbar green" style="height:42px"></div><div class="vbar yellow" style="height:36px"></div><div class="vbar purple" style="height:20px"></div></div><span>Self-pay</span></div>
+          <div class="col"><div class="bars"><div class="vbar" style="height:92px"></div><div class="vbar green" style="height:76px"></div><div class="vbar yellow" style="height:65px"></div><div class="vbar purple" style="height:40px"></div></div><span>Raffles</span></div>
+          <div class="col"><div class="bars"><div class="vbar" style="height:112px"></div><div class="vbar green" style="height:82px"></div><div class="vbar yellow" style="height:58px"></div><div class="vbar purple" style="height:30px"></div></div><span>Mednefits</span></div>
+        </div></div>
+      </section>
+
+      <section id="status" class="section">
+        <div class="section-head"><div><h1>状态分布</h1><div class="desc">将应收账款拆成 Paid、Write Off、In Progress、Not Started，方便判断已完成、待处理、待核销和未启动的金额。</div></div><span class="pill blue">By Status</span></div>
+        <div class="grid grid-4">
+          <div class="card status-card green"><h3>1. Paid</h3><div class="num">3,620,000</div><div class="muted">已确认收款到账</div></div>
+          <div class="card status-card red"><h3>2. Write Off</h3><div class="num">1,071,357</div><div class="muted">待核销 / 已核销</div></div>
+          <div class="card status-card blue"><h3>3. In Progress</h3><div class="num">7,654,321</div><div class="muted">跟进中</div></div>
+          <div class="card status-card gray"><h3>4. Not Started</h3><div class="num">0</div><div class="muted">暂无数据</div></div>
+        </div>
+        <div class="grid grid-2" style="margin-top:14px">
+          <div class="card"><h3>Paid 付款方分布</h3><div class="bar-list"><div class="bar-row"><span>MEDNEFITS</span><div class="bar green"><span style="width:85%"></span></div><b>4,189.6</b></div><div class="bar-row"><span>Corporate</span><div class="bar green"><span style="width:77%"></span></div><b>3,782</b></div><div class="bar-row"><span>Government</span><div class="bar green"><span style="width:10%"></span></div><b>48.5</b></div><div class="bar-row"><span>Cash</span><div class="bar green"><span style="width:6%"></span></div><b>101.7</b></div></div></div>
+          <div class="card"><h3>In Progress 付款方分布</h3><div class="bar-list"><div class="bar-row"><span>Raffles</span><div class="bar"><span style="width:78%"></span></div><b>1,241.25</b></div><div class="bar-row"><span>Government</span><div class="bar"><span style="width:45%"></span></div><b>711</b></div><div class="bar-row"><span>Corporate</span><div class="bar"><span style="width:40%"></span></div><b>627</b></div><div class="bar-row"><span>IHP</span><div class="bar"><span style="width:6%"></span></div><b>70.77</b></div></div></div>
+          <div class="card"><h3>Write Off 付款方分布</h3><div class="bar-list"><div class="bar-row"><span>Cash</span><div class="bar red"><span style="width:88%"></span></div><b>355.89</b></div><div class="bar-row"><span>IHP</span><div class="bar red"><span style="width:40%"></span></div><b>160.86</b></div><div class="bar-row"><span>Alliance</span><div class="bar red"><span style="width:8%"></span></div><b>7.5</b></div></div></div>
+          <div class="card"><h3>状态流转规则</h3><table class="table"><thead><tr><th>当前状态</th><th>触发条件</th><th>下一状态</th><th>操作人</th></tr></thead><tbody><tr><td>Not Started</td><td>账单导入后未处理</td><td>In Progress</td><td>负责人</td></tr><tr><td>In Progress</td><td>确认到账</td><td>Paid</td><td>Finance / CA</td></tr><tr><td>In Progress</td><td>确认无法收回</td><td>Write Off</td><td>Finance</td></tr><tr><td>Write Off</td><td>审批通过</td><td>Closed</td><td>Finance Manager</td></tr></tbody></table></div>
+        </div>
+      </section>
+
+      <section id="aging" class="section">
+        <div class="section-head"><div><h1>账龄与逾期分析</h1><div class="desc">根据 Invoice Date / Due Date 计算账龄，优先处理金额大且逾期久的账单。</div></div><span class="pill red">Aging</span></div>
+        <div class="grid grid-4">
+          <div class="card kpi"><div class="label">0-30 天</div><div class="value small">¥4.86M</div><span class="pill green">正常</span></div>
+          <div class="card kpi"><div class="label">31-60 天</div><div class="value small">¥3.12M</div><span class="pill yellow">需跟进</span></div>
+          <div class="card kpi"><div class="label">61-90 天</div><div class="value small">¥2.08M</div><span class="pill red">高风险</span></div>
+          <div class="card kpi"><div class="label">90 天以上</div><div class="value small">¥2.28M</div><span class="pill red">重点催收</span></div>
+        </div>
+        <div class="grid grid-2" style="margin-top:14px">
+          <div class="card"><h3>账龄 × 付款主体</h3><table class="table"><thead><tr><th>主体</th><th>0-30</th><th>31-60</th><th>61-90</th><th>>90</th><th>风险等级</th></tr></thead><tbody><tr><td>Gov</td><td class="money">420,000</td><td class="money">310,000</td><td class="money">210,000</td><td class="money">180,000</td><td><span class="pill yellow">中</span></td></tr><tr><td>TPA</td><td class="money">1,620,000</td><td class="money">980,000</td><td class="money">620,000</td><td class="money">520,000</td><td><span class="pill red">高</span></td></tr><tr><td>Self-pay</td><td class="money">480,000</td><td class="money">260,000</td><td class="money">220,000</td><td class="money">380,000</td><td><span class="pill red">高</span></td></tr><tr><td>Corporate</td><td class="money">2,340,000</td><td class="money">1,570,000</td><td class="money">1,030,000</td><td class="money">1,200,000</td><td><span class="pill yellow">中</span></td></tr></tbody></table></div>
+          <div class="card"><h3>逾期原因分布</h3><div class="bar-list"><div class="bar-row"><span>PA 未匹配</span><div class="bar red"><span style="width:76%"></span></div><b>45 笔</b></div><div class="bar-row"><span>客户未付款</span><div class="bar red"><span style="width:68%"></span></div><b>39 笔</b></div><div class="bar-row"><span>银行流水缺备注</span><div class="bar yellow"><span style="width:52%"></span></div><b>31 笔</b></div><div class="bar-row"><span>政府状态未更新</span><div class="bar yellow"><span style="width:44%"></span></div><b>22 笔</b></div><div class="bar-row"><span>账单金额差异</span><div class="bar red"><span style="width:36%"></span></div><b>18 笔</b></div></div></div>
+        </div>
+      </section>
+
+      <section id="owner" class="section">
+        <div class="section-head"><div><h1>负责人跟进视角</h1><div class="desc">同一笔应收的处理人可能不同：Gov 由政府/运营负责人跟，TPA 由 CA 和 Finance 对 PA，自付由 CA 看流水，Corporate 由 Finance 核对企业付款。</div></div><span class="pill blue">By Owner</span></div>
+        <div class="card"><h3>负责人回款情况（Incl. Paid & Write Off）</h3>
+          <div class="owner-card"><div class="owner-name">Finance Team</div><div><div class="progress"><span style="width:48%"></span></div><span class="muted">当前 ¥1,880,000 / 目标 ¥3,900,000</span></div><span class="pill yellow">48%</span></div>
+          <div class="owner-card"><div class="owner-name">CA Team A（TPA / Self-pay）</div><div><div class="progress green"><span style="width:67%"></span></div><span class="muted">当前 ¥2,540,000 / 目标 ¥3,800,000</span></div><span class="pill green">67%</span></div>
+          <div class="owner-card"><div class="owner-name">Ops Team B（Gov）</div><div><div class="progress"><span style="width:41%"></span></div><span class="muted">当前 ¥270,000 / 目标 ¥660,000</span></div><span class="pill yellow">41%</span></div>
+          <div class="owner-card"><div class="owner-name">Clinic CA</div><div><div class="progress red"><span style="width:29%"></span></div><span class="muted">当前 ¥320,000 / 目标 ¥1,100,000</span></div><span class="pill red">29%</span></div>
+        </div>
+        <div class="grid grid-3" style="margin-top:14px"><div class="card"><h3>Finance 诊所分布</h3><div class="bar-list"><div class="bar-row"><span>BB</span><div class="bar"><span style="width:90%"></span></div><b>900,000</b></div><div class="bar-row"><span>JE</span><div class="bar"><span style="width:66%"></span></div><b>650,000</b></div><div class="bar-row"><span>TM</span><div class="bar"><span style="width:22%"></span></div><b>220,000</b></div></div></div><div class="card"><h3>CA Team A 付款方分布</h3><div class="bar-list"><div class="bar-row"><span>Raffles</span><div class="bar"><span style="width:95%"></span></div><b>1,200,000</b></div><div class="bar-row"><span>Corporate</span><div class="bar"><span style="width:56%"></span></div><b>700,000</b></div><div class="bar-row"><span>Self-pay</span><div class="bar"><span style="width:38%"></span></div><b>480,000</b></div></div></div><div class="card"><h3>Ops Team B 付款方分布</h3><div class="bar-list"><div class="bar-row"><span>Government</span><div class="bar green"><span style="width:100%"></span></div><b>180,000</b></div><div class="bar-row"><span>IHP</span><div class="bar"><span style="width:33%"></span></div><b>60,000</b></div><div class="bar-row"><span>Adept</span><div class="bar"><span style="width:11%"></span></div><b>20,000</b></div></div></div></div>
+      </section>
+
+      <section id="exception" class="section">
+        <div class="section-head"><div><h1>异常与提醒</h1><div class="desc">将需要人工处理的问题单独拉出：未匹配、金额差异、逾期未跟进、待核销、状态异常。</div></div><span class="pill red">Exception</span></div>
+        <div class="grid grid-3"><div class="card kpi"><div class="label">未匹配付款建议</div><div class="value small">45</div><span class="pill red">TPA 优先</span></div><div class="card kpi"><div class="label">金额差异待确认</div><div class="value small">28</div><span class="pill yellow">需人工复核</span></div><div class="card kpi"><div class="label">逾期未跟进</div><div class="value small">128</div><span class="pill red">>30 天</span></div></div>
+        <div class="grid grid-2" style="margin-top:14px"><div class="card"><h3>异常清单</h3><table class="table"><thead><tr><th>异常类型</th><th>触发规则</th><th>数量</th><th>负责人</th><th>处理建议</th></tr></thead><tbody><tr><td>PA 未匹配</td><td>TPA PA 有金额但无 Invoice</td><td>45</td><td>CA Team A</td><td>按 PA 明细拆分匹配</td></tr><tr><td>金额差异</td><td>到账金额 ≠ Invoice 金额</td><td>28</td><td>Finance</td><td>确认 GST / cap / short payment</td></tr><tr><td>逾期未跟进</td><td>超过 30 天无备注更新</td><td>128</td><td>Owner</td><td>自动提醒负责人</td></tr><tr><td>待核销</td><td>标记 Write Off 未审批</td><td>18</td><td>Finance Manager</td><td>补充原因后审批</td></tr></tbody></table></div><div class="card"><h3>提醒规则</h3><div class="workflow"><div class="step"><b>每天 10:00</b><span class="muted">推送逾期清单</span></div><span class="arrow">→</span><div class="step"><b>每周五</b><span class="muted">汇总负责人进度</span></div><span class="arrow">→</span><div class="step"><b>月底</b><span class="muted">导出 SOA / Write Off 清单</span></div></div><div class="formula" style="margin-top:14px"><b>提醒条件示例：</b><br>1. 状态 = In Progress 且 Last Follow-up Date > 7 天；<br>2. Aging > 30 天 且 Owner 为空；<br>3. Payment Advice Amount 与 Invoice Amount 差异超过 S$5；<br>4. Write Off Amount > 0 且未填写核销原因。</div></div></div>
+      </section>
+
+      <section id="detail" class="section">
+        <div class="section-head"><div><h1>底层明细</h1><div class="desc">用于从看板钻取到底层账单，支持按 Clinic、付款主体、状态、负责人、账龄、异常类型筛选。</div></div><span class="pill blue">Base Table</span></div>
+        <div class="card"><h3>AR Follow-up Detail Table</h3><table class="table"><thead><tr><th>Invoice No.</th><th>Clinic</th><th>Payer Source</th><th>Payer Name</th><th>Invoice Date</th><th>Due Date</th><th>Aging</th><th>Amount</th><th>Status</th><th>Owner</th><th>Exception</th><th>Next Action</th></tr></thead><tbody>
+          <tr class="detail-row"><td>INV-2605-001</td><td>BB</td><td>TPA</td><td>Raffles</td><td>2026-05-03</td><td>2026-06-02</td><td>28</td><td class="money">42,800</td><td><span class="pill blue">In Progress</span></td><td>CA Team A</td><td>PA 未匹配</td><td>按 PA 拆分 Invoice</td></tr>
+          <tr class="detail-row"><td>INV-2605-018</td><td>JE</td><td>Gov</td><td>MHCP</td><td>2026-04-22</td><td>2026-05-22</td><td>39</td><td class="money">18,600</td><td><span class="pill yellow">Pending</span></td><td>Ops Team B</td><td>状态未更新</td><td>检查 MHCP Paid 状态</td></tr>
+          <tr class="detail-row"><td>INV-2604-066</td><td>TM</td><td>Self-pay</td><td>Patient A</td><td>2026-04-10</td><td>2026-04-25</td><td>66</td><td class="money">3,240</td><td><span class="pill red">Overdue</span></td><td>Clinic CA</td><td>银行流水未匹配</td><td>核对 PayNow / NETS</td></tr>
+          <tr class="detail-row"><td>INV-2603-104</td><td>CBP</td><td>Corporate</td><td>Company X</td><td>2026-03-15</td><td>2026-04-14</td><td>92</td><td class="money">128,000</td><td><span class="pill blue">In Progress</span></td><td>Finance</td><td>客户未确认</td><td>发送 SOA</td></tr>
+          <tr class="detail-row"><td>INV-2602-089</td><td>BB</td><td>TPA</td><td>IHP</td><td>2026-02-18</td><td>2026-03-20</td><td>118</td><td class="money">7,500</td><td><span class="pill red">Write Off</span></td><td>Finance</td><td>待核销审批</td><td>补充核销原因</td></tr>
+        </tbody></table></div>
+        <div class="card" style="margin-top:14px"><h3>字段设计重点</h3><table class="table"><thead><tr><th>字段</th><th>用途</th><th>是否必填</th><th>校验规则</th></tr></thead><tbody><tr><td>Payer Source</td><td>区分 Gov / TPA / Self-pay / Corporate</td><td>是</td><td>枚举值</td></tr><tr><td>Status</td><td>跟进状态</td><td>是</td><td>Not Started / In Progress / Paid / Write Off</td></tr><tr><td>Owner</td><td>责任人</td><td>是</td><td>按主体自动建议负责人</td></tr><tr><td>Last Follow-up Date</td><td>判断是否超期未跟进</td><td>是</td><td>不可晚于当前日期</td></tr><tr><td>Exception Type</td><td>异常归因</td><td>否</td><td>金额差异、PA 未匹配、银行流水未匹配等</td></tr></tbody></table></div>
+      </section>
+      <div class="footer-space"></div>
+    </main>
+  </div>
+  <script>
+    function show(id, el){
+      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+      el.classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+  </script>
 </body>
 </html>
